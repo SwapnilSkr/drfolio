@@ -1,12 +1,26 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signInWithEmail } from "../api/auth/useSignIn";
+import { signInWithEmail } from "@/app/api/auth/useSignIn";
+import { useRecoilState } from "recoil";
+import { userAuthState } from "@/app/state/atoms/userAtom";
+import Spinner from "@/components/ui/Spinner";
 
 export default function Login() {
+  const router = useRouter();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState("");
+  const [userAuth, setUserAuth] = useRecoilState(userAuthState);
+
+  React.useEffect(() => {
+    if (userAuth && userAuth?.role === "authenticated") {
+      router.push("/");
+    }
+  }, [userAuth]);
 
   const reset = () => {
     setEmail("");
@@ -15,8 +29,20 @@ export default function Login() {
 
   const signInHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const response = await signInWithEmail({ email, password });
-    console.log(response?.data);
+    console.log(response);
+    if (response?.error) {
+      setError(response.error?.message);
+    }
+    if (response?.data) {
+      setUserAuth(response.data);
+      localStorage.setItem("userInfo", JSON.stringify(response.data));
+    }
+    if (response?.message === "User signed in successfully") {
+      router.push("/");
+    }
+    setLoading(false);
     reset();
   };
 
@@ -37,6 +63,9 @@ export default function Login() {
                 Sign up
               </Link>
             </p>
+            {error && (
+              <p className="text-red-500 text-sm font-medium">{error}</p>
+            )}
           </div>
         </div>
         <form onSubmit={signInHandler} className="mt-8 space-y-5">
@@ -61,7 +90,7 @@ export default function Login() {
             />
           </div>
           <button className="w-full px-4 py-2 text-white font-medium bg-emerald-500 hover:bg-emerald-700 active:bg-emerald-900 rounded-lg duration-150">
-            Sign in
+            {loading ? <Spinner className="h-full w-full" /> : "Sign In"}
           </button>
           <div className="text-center">
             <a href="javascript:void(0)" className="hover:text-indigo-600">

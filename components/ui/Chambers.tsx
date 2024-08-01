@@ -1,23 +1,7 @@
+import { getAllChambers } from "@/app/api/chambers/getAllChambers";
 import { HoverEffect } from "./card-hover-effect";
-
-export function Chambers() {
-  return (
-    <div id="chambers" className="max-w-screen-xl md:px-8 mx-auto mt-40">
-      <h1 className="text-4xl text-gray-800 font-extrabold lg:text-5xl mb-[40px]">
-        Chambers
-      </h1>
-      <p className="text-gray-600 mb-[40px]">
-        Our state-of-the-art chambers are designed to provide the highest
-        quality care and comfort for our patients. Each chamber is equipped with
-        advanced medical technology and staffed by experienced professionals
-        committed to delivering exceptional pulmonary, allergy, and sleep health
-        services. Explore our chambers to learn more about the specialized
-        environments where we offer personalized treatment and care.
-      </p>
-      <HoverEffect items={projects} />
-    </div>
-  );
-}
+import { useEffect, useState } from "react";
+import Spinner from "./Spinner";
 
 export const projects = [
   {
@@ -80,3 +64,61 @@ export const projects = [
     timing: "Wednesday/Saturday  – 6.30 pm",
   },
 ];
+
+export function Chambers() {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [newProjects, setNewProjects] = useState<
+    {
+      title: string;
+      address: string;
+      mobile: string;
+      timing: string;
+    }[]
+  >([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    setLoading(true);
+    const response = await getAllChambers();
+    console.log("response", response?.data);
+    if (response.data && response.data.length > 0) {
+      const responseObj = response.data.map((item) => {
+        const { chamberName: title, address, mobile, timings: timing } = item;
+        return {
+          title,
+          address,
+          mobile: `Mobile: ${mobile}`,
+          timing,
+        };
+      });
+      setNewProjects(responseObj);
+    }
+    if (response.error) {
+      setNewProjects(projects);
+    }
+    setLoading(false);
+  }
+
+  if (loading) return <Spinner className="w-full h-full" />;
+  else
+    return (
+      <div id="chambers" className="max-w-screen-xl md:px-8 mx-auto mt-40">
+        <h1 className="text-4xl text-gray-800 font-extrabold lg:text-5xl mb-[40px]">
+          Chambers
+        </h1>
+        <p className="text-gray-600 mb-[40px]">
+          Our state-of-the-art chambers are designed to provide the highest
+          quality care and comfort for our patients. Each chamber is equipped
+          with advanced medical technology and staffed by experienced
+          professionals committed to delivering exceptional pulmonary, allergy,
+          and sleep health services. Explore our chambers to learn more about
+          the specialized environments where we offer personalized treatment and
+          care.
+        </p>
+        <HoverEffect items={newProjects} />
+      </div>
+    );
+}

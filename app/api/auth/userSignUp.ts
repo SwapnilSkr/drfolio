@@ -1,30 +1,40 @@
 "use server";
 
-import { supabase, prisma } from "@/app/api/auth/index";
+import { supabase, prisma } from "@/app/api/index";
 import { SignUpType } from "@/app/types/authType";
 
 export async function signUpNewUser({ email, password, name }: SignUpType) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: "http://localhost:3000/login",
-    },
-  });
-  if (error) {
+  try {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) {
+      return {
+        data: null,
+        message: "User creation failed",
+        error: { message: error.message },
+      };
+    }
+
+    const user = await prisma.user.create({
+      data: {
+        email: email,
+        name: name,
+      },
+    });
     return {
-      data: error,
-      message: "User creation failed",
+      data: { id: user.id, email: user.email, name: user.name },
+      message: "User created successfully",
+    };
+  } catch (error) {
+    return {
+      data: null,
+      message: "An unexpected error occurred",
+      error: {
+        message: error instanceof Error ? error.message : String(error),
+      },
     };
   }
-  await prisma.user.create({
-    data: {
-      email: email,
-      name: name,
-    },
-  });
-  return {
-    data: data?.user,
-    message: "User created successfully",
-  };
 }

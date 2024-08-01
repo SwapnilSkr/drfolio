@@ -1,12 +1,19 @@
 "use client";
 
+import { userAuthState } from "@/app/state/atoms/userAtom";
 import Link from "next/link";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { useRouter } from "next/navigation";
+import { Button } from "./button";
 
 export default () => {
+  const router = useRouter();
+  const [userAuth, setUserAuth] = useRecoilState(userAuthState);
   const [state, setState] = useState(false);
 
-  // Replace  paths with your paths
+  // console.log("userAuth", userAuth);
+
   const navigation = [
     { title: "Home", path: "/" },
     { title: "Expertise", path: "#expertise" },
@@ -80,14 +87,44 @@ export default () => {
             })}
             <span className="hidden w-px h-6 bg-gray-300 lg:block"></span>
             <div className="space-y-3 items-center gap-x-6 lg:flex lg:space-y-0">
-              <li>
-                <Link
-                  href="/login"
-                  className="block py-3 px-4 font-medium text-center text-white bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 active:shadow-none rounded-lg shadow md:inline"
-                >
-                  Sign In
-                </Link>
-              </li>
+              {userAuth &&
+              userAuth?.role === "authenticated" &&
+              userAuth?.email === "admin@gmail.com" ? (
+                <li>
+                  <Button
+                    onClick={() => {
+                      router.push("/dashboard");
+                    }}
+                    className="block py-3 px-4 font-medium text-center text-white bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 active:shadow-none rounded-lg shadow md:inline"
+                  >
+                    Dashboard
+                  </Button>
+                </li>
+              ) : userAuth && userAuth?.role === "authenticated" ? (
+                <li>
+                  <Button
+                    onClick={() => {
+                      setUserAuth({
+                        email: "",
+                        role: "",
+                      });
+                      localStorage.removeItem("userInfo");
+                    }}
+                    className="block py-3 px-4 font-medium text-center text-white bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 active:shadow-none rounded-lg shadow md:inline"
+                  >
+                    Sign Out
+                  </Button>
+                </li>
+              ) : (
+                <li>
+                  <Link
+                    href="/login"
+                    className="block py-3 px-4 font-medium text-center text-white bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 active:shadow-none rounded-lg shadow md:inline"
+                  >
+                    Sign In
+                  </Link>
+                </li>
+              )}
             </div>
           </ul>
         </div>

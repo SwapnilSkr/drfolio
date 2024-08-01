@@ -1,19 +1,30 @@
-import { supabase } from "@/app/api/auth/index";
+import { supabase } from "@/app/api/index";
 import { SignInType } from "@/app/types/authType";
 
 export async function signInWithEmail({ email, password }: SignInType) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  if (error) {
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) {
+      return {
+        data: null,
+        message: "User sign in failed",
+        error: { message: error.message },
+      };
+    }
     return {
-      data: error,
-      message: "User sign in failed",
+      data: { email: data?.user?.email, role: data?.user?.role },
+      message: "User signed in successfully",
+    };
+  } catch (error) {
+    return {
+      data: null,
+      message: "An unexpected error occurred",
+      error: {
+        message: error instanceof Error ? error.message : String(error),
+      },
     };
   }
-  return {
-    data: data?.user,
-    message: "User signed in successfully",
-  };
 }

@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -62,4 +56,31 @@ model Like {
   blogId Int
 
   @@id([userId, blogId])
+}
+
+model Chamber {
+  id          Int      @id @default(autoincrement())
+  chamberName String
+  address     String
+  mobile      String
+  timings     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id        Int      @id @default(autoincrement())
+  name      String
+  points    String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Expertise {
+  id        Int      @id @default(autoincrement())
+  name      String
+  para1     String
+  para2     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

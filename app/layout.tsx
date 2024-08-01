@@ -1,7 +1,6 @@
 import { GeistSans } from "geist/font/sans";
 import { monsterrat } from "@/utils/fonts";
 import "./globals.css";
-import Navbar from "@/components/ui/navbar";
 import RecoilContextProvider from "./recoilContextProvider";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -25,10 +24,7 @@ export default function RootLayout({
         className={`${GeistSans.className} ${monsterrat} bg-background text-foreground`}
       >
         <main className="min-h-screen flex flex-col relative">
-          <RecoilContextProvider>
-            <Navbar />
-            {children}
-          </RecoilContextProvider>
+          <RecoilContextProvider>{children}</RecoilContextProvider>
         </main>
       </body>
     </html>

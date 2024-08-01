@@ -1,6 +1,8 @@
 import { HoverBorderGradient } from "./hover-border-gradient";
 import { TextGenerateEffect } from "./text-generate-effect";
 import { motion } from "framer-motion";
+import ProfilePic from "@/public/images/KaushikSahaPhoto.jpeg";
+import Image from "next/image";
 
 const Hero = () => {
   return (
@@ -41,17 +43,23 @@ const Hero = () => {
             className="items-center gap-x-3 space-y-3 sm:flex sm:space-y-0"
           >
             <a
-              href="javascript:void(0)"
+              href="https://researchid.co/drksaha"
+              target="_blank"
               className="block rounded-full py-2 px-4 text-center text-white font-medium bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 shadow-lg hover:shadow-none"
             >
-              Read My Blogs
+              Read My Papers
             </a>
             <HoverBorderGradient
               containerClassName="rounded-full"
               as="button"
               className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
             >
-              Chat with Me
+              <a
+                href="#contact"
+                className="w-full h-full flex items-center justify-center"
+              >
+                Chat with Me
+              </a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -73,10 +81,11 @@ const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ease: "easeOut", duration: 1.5 }}
         >
-          <img
-            src="https://media.licdn.com/dms/image/D5603AQHCVmDjiyNMkQ/profile-displayphoto-shrink_800_800/0/1714851176769?e=1721260800&v=beta&t=nbO401syi6jQ980neEx9PECY-b2X2vEFF8LrVbGZ31k"
+          <Image
+            src={ProfilePic}
+            priority
             className=" md:rounded-full lg:w-96 lg:h-96 w-72 h-72 rounded-full object-cover shadow-lg"
-            alt=""
+            alt="profile picture"
           />
         </motion.div>
       </div>
