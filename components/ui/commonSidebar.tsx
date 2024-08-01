@@ -1,11 +1,8 @@
-import { userAuthState } from "@/app/state/atoms/userAtom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { useSetRecoilState } from "recoil";
 
 const CommonSidebar = () => {
-  const setUserAuth = useSetRecoilState(userAuthState);
   React.useEffect(() => {
     if (typeof window === "undefined") {
       console.log("The window object is not available in this environment.");
@@ -70,10 +67,6 @@ const CommonSidebar = () => {
       <Link
         href="/"
         onClick={() => {
-          setUserAuth({
-            email: "",
-            role: "",
-          });
           window.localStorage.removeItem("userInfo");
         }}
         className={`group flex gap-4 px-[30px] items-center w-full h-[64px] rounded-2xl ${

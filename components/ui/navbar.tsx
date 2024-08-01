@@ -1,26 +1,19 @@
 "use client";
 
-import { userAuthState } from "@/app/state/atoms/userAtom";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 import { Button } from "./button";
 
-export default () => {
+const Navbar: React.FC<{
+  userAuth: {
+    email: string;
+    role: string;
+  };
+  setUserAuth: (userAuth: { email: string; role: string }) => void;
+}> = ({ userAuth, setUserAuth }) => {
   const router = useRouter();
-  const [userAuth, setUserAuth] = useRecoilState(userAuthState);
   const [state, setState] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      console.log("The window object is not available in this environment.");
-    } else {
-      console.log("This window is available");
-    }
-  }, []);
-
-  // console.log("userAuth", userAuth);
 
   const navigation = [
     { title: "Home", path: "/" },
@@ -94,6 +87,7 @@ export default () => {
               );
             })}
             <span className="hidden w-px h-6 bg-gray-300 lg:block"></span>
+
             <div className="space-y-3 items-center gap-x-6 lg:flex lg:space-y-0">
               {userAuth &&
               userAuth?.role === "authenticated" &&
@@ -140,3 +134,5 @@ export default () => {
     </nav>
   );
 };
+
+export default Navbar;

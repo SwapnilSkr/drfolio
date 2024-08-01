@@ -4,23 +4,30 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signInWithEmail } from "@/app/api/auth/useSignIn";
-import { useRecoilState } from "recoil";
-import { userAuthState } from "@/app/state/atoms/userAtom";
 import Spinner from "@/components/ui/Spinner";
+import Loading from "../loading";
 
 export default function Login() {
   const router = useRouter();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [screenLoading, setScreenLoading] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
-  const [userAuth, setUserAuth] = useRecoilState(userAuthState);
+  const [userAuth, setUserAuth] = React.useState({
+    email: "",
+    role: "",
+  });
 
   React.useEffect(() => {
     if (typeof window === "undefined") {
       console.log("The window object is not available in this environment.");
     } else {
       console.log("This window is available");
+      const userInfo = window.localStorage.getItem("userInfo");
+      const user = userInfo ? JSON.parse(userInfo) : null;
+      setUserAuth(user);
+      setScreenLoading(false);
     }
   }, []);
 
@@ -55,6 +62,10 @@ export default function Login() {
     setLoading(false);
     reset();
   };
+
+  if (screenLoading) {
+    return <Loading className="w-full h-full" />;
+  }
 
   return (
     <main className="w-full h-screen flex flex-col items-center justify-center px-4">
