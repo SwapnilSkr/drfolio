@@ -1,7 +1,19 @@
+import { userAuthState } from "@/app/state/atoms/userAtom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React from "react";
+import { useSetRecoilState } from "recoil";
 
 const CommonSidebar = () => {
+  const setUserAuth = useSetRecoilState(userAuthState);
+  React.useEffect(() => {
+    if (typeof window === "undefined") {
+      console.log("The window object is not available in this environment.");
+    } else {
+      console.log("This window is available");
+    }
+  }, []);
+
   const path = usePathname();
   return (
     <div className="mt-[88px] flex flex-col justify-center gap-4">
@@ -54,6 +66,23 @@ const CommonSidebar = () => {
         }`}
       >
         <span>Home</span>
+      </Link>
+      <Link
+        href="/"
+        onClick={() => {
+          setUserAuth({
+            email: "",
+            role: "",
+          });
+          window.localStorage.removeItem("userInfo");
+        }}
+        className={`group flex gap-4 px-[30px] items-center w-full h-[64px] rounded-2xl ${
+          path === "/"
+            ? "bg-green-500 text-white"
+            : "duration-500 hover:scale-105 hover:bg-green-500 hover:text-white"
+        }`}
+      >
+        <span>Log Out</span>
       </Link>
     </div>
   );

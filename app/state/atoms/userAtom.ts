@@ -2,7 +2,13 @@
 
 import { atom } from "recoil";
 
-const userInfoLocal = localStorage.getItem("userInfo");
+if (typeof window === "undefined") {
+  console.log("The window object is not available in this environment.");
+} else {
+  console.log("This window is available");
+}
+
+const userInfoLocal = window.localStorage.getItem("userInfo");
 const userInfo = userInfoLocal ? JSON.parse(userInfoLocal) : null;
 
 export const userAuthState = atom({

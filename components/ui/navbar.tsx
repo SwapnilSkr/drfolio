@@ -2,7 +2,7 @@
 
 import { userAuthState } from "@/app/state/atoms/userAtom";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 import { Button } from "./button";
@@ -11,6 +11,14 @@ export default () => {
   const router = useRouter();
   const [userAuth, setUserAuth] = useRecoilState(userAuthState);
   const [state, setState] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      console.log("The window object is not available in this environment.");
+    } else {
+      console.log("This window is available");
+    }
+  }, []);
 
   // console.log("userAuth", userAuth);
 
@@ -108,7 +116,7 @@ export default () => {
                         email: "",
                         role: "",
                       });
-                      localStorage.removeItem("userInfo");
+                      window.localStorage.removeItem("userInfo");
                     }}
                     className="block py-3 px-4 font-medium text-center text-white bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 active:shadow-none rounded-lg shadow md:inline"
                   >

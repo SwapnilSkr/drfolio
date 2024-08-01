@@ -17,6 +17,14 @@ export default function Login() {
   const [userAuth, setUserAuth] = useRecoilState(userAuthState);
 
   React.useEffect(() => {
+    if (typeof window === "undefined") {
+      console.log("The window object is not available in this environment.");
+    } else {
+      console.log("This window is available");
+    }
+  }, []);
+
+  React.useEffect(() => {
     if (userAuth && userAuth?.role === "authenticated") {
       router.push("/");
     }
@@ -37,7 +45,7 @@ export default function Login() {
     }
     if (response?.data) {
       setUserAuth(response.data);
-      localStorage.setItem("userInfo", JSON.stringify(response.data));
+      window.localStorage.setItem("userInfo", JSON.stringify(response.data));
     }
     if (response?.message === "User signed in successfully") {
       router.push("/");
