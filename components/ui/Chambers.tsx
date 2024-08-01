@@ -83,7 +83,6 @@ export function Chambers() {
   async function fetchData() {
     setLoading(true);
     const response = await getAllChambers();
-    console.log("response", response?.data);
     if (response.data && response.data.length > 0) {
       const responseObj = response.data.map((item) => {
         const { chamberName: title, address, mobile, timings: timing } = item;

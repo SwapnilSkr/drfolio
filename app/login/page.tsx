@@ -44,8 +44,10 @@ export default function Login() {
       setError(response.error?.message);
     }
     if (response?.data) {
-      setUserAuth(response.data);
       window.localStorage.setItem("userInfo", JSON.stringify(response.data));
+      const userInfo = window.localStorage.getItem("userInfo");
+      const parsedUserInfo = userInfo ? JSON.parse(userInfo) : null;
+      setUserAuth(parsedUserInfo);
     }
     if (response?.message === "User signed in successfully") {
       router.push("/");
