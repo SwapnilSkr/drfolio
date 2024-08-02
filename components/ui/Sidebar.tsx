@@ -9,7 +9,10 @@ const Sidebar = () => {
   console.log(path);
   return (
     <div className="px-[40px] py-[50px] min-h-screen h-full bg-gray-100">
-      <Link href="dashboard" className="flex items-center gap-4 cursor-pointer">
+      <Link
+        href="/dashboard"
+        className="flex items-center gap-4 cursor-pointer"
+      >
         <div className="flex flex-col">
           <p className="text-[24px] text-green-500 font-[600] whitespace-nowrap">
             Admin Dashboard
