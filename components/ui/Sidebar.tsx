@@ -6,7 +6,6 @@ import CommonSidebar from "./commonSidebar";
 
 const Sidebar = () => {
   const path = usePathname();
-  console.log(path);
   return (
     <div className="px-[40px] py-[50px] min-h-screen h-full bg-gray-100">
       <Link
