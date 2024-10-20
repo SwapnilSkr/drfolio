@@ -24,7 +24,7 @@ const Hero = () => {
           className="flex-none space-y-5 px-4 sm:max-w-lg md:max-w-sm md:px-0 lg:max-w-xl"
         >
           <h1 className="text-sm text-emerald-500 font-medium">
-            Over 1000 satisfied patients
+            Over thousands of satisfied patients
           </h1>
           <TextGenerateEffect
             words="I am a well known Pulmonologist from West Bengal."
