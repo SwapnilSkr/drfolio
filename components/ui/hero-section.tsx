@@ -43,7 +43,7 @@ const Hero = () => {
             className="items-center gap-x-3 space-y-3 sm:flex sm:space-y-0"
           >
             <a
-              href="https://domain2a43f1.us.stackstaging.com/"
+              href="https://blog.pulmocarecenter.com"
               target="_blank"
               className="block rounded-full py-2 px-4 text-center text-white font-medium bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 shadow-lg hover:shadow-none"
             >
