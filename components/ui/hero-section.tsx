@@ -49,6 +49,13 @@ const Hero = () => {
             >
               Read My Blogs
             </a>
+            <a
+              href="https://pulmocourse.pulmocarecenter.com"
+              target="_blank"
+              className="block rounded-full py-2 px-4 text-center text-white font-medium bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 shadow-lg hover:shadow-none"
+            >
+              Access My Courses
+            </a>
             <HoverBorderGradient
               containerClassName="rounded-full"
               as="button"
