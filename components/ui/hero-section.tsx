@@ -42,6 +42,23 @@ const Hero = () => {
             }}
             className="items-center gap-x-3 space-y-3 sm:flex sm:space-y-0"
           >
+            <div className="flex flex-col gap-2">
+            <a
+              href="https://web.docterz.in/#/clinics/4336/book_online_appointment"
+              target="_blank"
+              className="block rounded-full py-2 px-4 text-center text-white font-medium bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 shadow-lg hover:shadow-none"
+            >
+             Book My Appointment
+            </a>
+            <a
+              href="https://ebooks.pulmocarecenter.com"
+              target="_blank"
+              className="block rounded-full py-2 px-4 text-center text-white font-medium bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 shadow-lg hover:shadow-none"
+            >
+              Browse My Bookshelf
+            </a>
+            </div>
+            <div className="flex flex-col gap-2">
             <a
               href="https://blog.pulmocarecenter.com"
               target="_blank"
@@ -56,7 +73,9 @@ const Hero = () => {
             >
               Access My Courses
             </a>
-            <HoverBorderGradient
+            </div>
+          </motion.div>
+          <HoverBorderGradient
               containerClassName="rounded-full"
               as="button"
               className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
@@ -80,7 +99,7 @@ const Hero = () => {
                 />
               </svg>
             </HoverBorderGradient>
-          </motion.div>
+            
         </motion.div>
         <motion.div
           className="flex-none mt-14 md:mt-0 md:max-w-sm"
