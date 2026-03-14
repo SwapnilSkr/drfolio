@@ -111,8 +111,19 @@ const Hero = () => {
             src={ProfilePic}
             priority
             className=" md:rounded-full lg:w-96 lg:h-96 w-72 h-72 rounded-full object-cover shadow-lg"
-            alt="profile picture"
+            alt="Prof. (Dr.) Kaushik Saha"
           />
+          <div className="mt-6 text-center">
+            <h2 className="text-xl font-bold text-gray-800 lg:text-2xl">
+              Prof. (Dr.) Kaushik Saha
+            </h2>
+            <p className="mt-1 text-sm text-emerald-600 font-medium">
+              MBBS, DTCD, MD, FCCP, FICP, FICS
+            </p>
+            <p className="mt-2 text-sm text-gray-600 max-w-xs mx-auto">
+              Senior Interventional Pulmonologist, Respiratory Allergy Specialist, Sleep Apnea Specialist
+            </p>
+          </div>
         </motion.div>
       </div>
     </section>
