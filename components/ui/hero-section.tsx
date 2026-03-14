@@ -44,21 +44,21 @@ const Hero = () => {
           >
             <div className="flex flex-col gap-2">
             <a
-              href="https://web.docterz.in/#/clinics/4336/book_online_appointment"
+              href="https://app.lapsula.com/book/drksahapulmo"
               target="_blank"
               className="block rounded-full py-2 px-4 text-center text-white font-medium bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 shadow-lg hover:shadow-none"
             >
              Book My Appointment
             </a>
             <a
-              href="https://ebooks.pulmocarecenter.com"
+              href="https://pulmoread.ksaha.name/"
               target="_blank"
               className="block rounded-full py-2 px-4 text-center text-white font-medium bg-emerald-500 duration-150 hover:bg-emerald-700 active:bg-emerald-900 shadow-lg hover:shadow-none"
             >
-              Browse My Bookshelf
+              More About Me
             </a>
             </div>
-            <div className="flex flex-col gap-2">
+            {/* <div className="flex flex-col gap-2">
             <a
               href="https://blog.pulmocarecenter.com"
               target="_blank"
@@ -73,7 +73,7 @@ const Hero = () => {
             >
               Access My Courses
             </a>
-            </div>
+            </div> */}
           </motion.div>
           <HoverBorderGradient
               containerClassName="rounded-full"
